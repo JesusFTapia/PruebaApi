@@ -38,9 +38,10 @@ public class AccesoExpedienteController {
 
         calendar.add(Calendar.HOUR, 7);
         permiso.setFechaDeGeneracion(calendar.getTime());
-
-        calendar.add(Calendar.HOUR, 24);
-        permiso.setFechaVencimiento(calendar.getTime());
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(permiso.getFechaDeGeneracion());
+        calendar2.add(Calendar.HOUR, 24);
+        permiso.setFechaVencimiento(calendar2.getTime());
 
         return permisoRepository.save(permiso);
     }
