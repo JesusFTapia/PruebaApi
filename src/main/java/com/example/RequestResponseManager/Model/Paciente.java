@@ -1,18 +1,20 @@
-package com.example.RequestResponseManager.Paciente;
+package com.example.RequestResponseManager.Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "pacientes")
 public class Paciente {
+
     @Id
     private String id;
     private String nombre;
     private int edad;
     private String curp;
+    private Expediente expediente;
 
     public String getId() {
-        return id + 0;
+        return id;
     }
 
     public void setId(String id) {
@@ -27,6 +29,14 @@ public class Paciente {
         this.nombre = nombre;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
     public String getCurp() {
         return curp;
     }
@@ -35,12 +45,12 @@ public class Paciente {
         this.curp = curp;
     }
 
-    public int getEdad() {
-        return edad;
+    public Expediente getExpediente() {
+        return expediente;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setExpediente(Expediente expediente) {
+        this.expediente = expediente;
     }
 
 }

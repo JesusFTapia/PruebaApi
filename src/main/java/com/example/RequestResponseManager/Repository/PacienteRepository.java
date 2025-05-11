@@ -1,7 +1,8 @@
-package com.example.RequestResponseManager.Paciente;
+package com.example.RequestResponseManager.Repository;
 
-import com.example.RequestResponseManager.Paciente.Paciente;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.example.RequestResponseManager.Model.Paciente;
 
 public interface PacienteRepository extends MongoRepository<Paciente, String> {
     Paciente findByCurp(String curp);
