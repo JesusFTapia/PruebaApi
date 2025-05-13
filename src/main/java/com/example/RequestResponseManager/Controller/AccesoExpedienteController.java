@@ -1,5 +1,6 @@
 package com.example.RequestResponseManager.Controller;
 
+import com.example.RequestResponseManager.Model.Expediente;
 import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
@@ -57,12 +58,11 @@ public class AccesoExpedienteController {
      * }
      */
 
-    /*
-     * @GetMapping("/expediente/{curp}")
-     * public Paciente getByCurp(@PathVariable String curp) {
-     * rpo
-     * if
-     * return repository.findByCurp(curp);
-     * }
-     */
+    @GetMapping("/expediente/{uuid}")
+    public Expediente getByCurp(@PathVariable String uuid) {
+        rpo
+        if
+        return repository.findByCurp(curp);
+    }
+
 }
