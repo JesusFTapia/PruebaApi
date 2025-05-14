@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -71,7 +70,7 @@ public class AccesoExpedienteController {
     }
 
     @GetMapping("/expedientes/{idPaciente}")
-    public ResponseEntity<Expediente> getExpediente(@PathVariable String idPaciente) {
+    public ResponseEntity<Expediente> getPaciente(@PathVariable String idPaciente) {
         return ResponseEntity.ok(pacienteRepository.findById(idPaciente).get().getExpediente());
 
     }
