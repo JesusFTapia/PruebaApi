@@ -1,11 +1,12 @@
 package com.example.RequestResponseManager.Controller;
 
 import com.example.RequestResponseManager.Model.Expediente;
+import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
-import com.example.RequestResponseManager.Model.SolicitudExpediente;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
 import com.example.RequestResponseManager.Repository.PermisoRepository;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,12 @@ public class AccesoExpedienteController {
     public AccesoExpedienteController(PacienteRepository pacienteRepository, PermisoRepository permisoRepository) {
         this.pacienteRepository = pacienteRepository;
         this.permisoRepository = permisoRepository;
+    }
+
+    @PostMapping
+    public ResponseEntity<Paciente> guardarPaciente(@RequestBody Paciente paciente) {
+        Paciente guardado = pacienteRepository.save(paciente);
+        return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
     }
 
     @PostMapping("/generarAcceso/")
