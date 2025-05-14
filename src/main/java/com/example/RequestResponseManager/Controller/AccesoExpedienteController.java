@@ -26,7 +26,7 @@ public class AccesoExpedienteController {
         this.permisoRepository = permisoRepository;
     }
 
-    @PostMapping
+    @PostMapping("/nuevopaciente")
     public ResponseEntity<Paciente> guardarPaciente(@RequestBody NuevoPaciente nuevoPaciente) {
         Paciente paciente = new Paciente();
         paciente.setId(nuevoPaciente.getIdPaciente());
@@ -34,7 +34,9 @@ public class AccesoExpedienteController {
         Expediente expediente = new Expediente();
         expediente.setFechaCreacion(nuevoPaciente.getFechaCreacion());
         paciente.setExpediente(expediente);
+
         Paciente guardado = pacienteRepository.save(paciente);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
     }
 
