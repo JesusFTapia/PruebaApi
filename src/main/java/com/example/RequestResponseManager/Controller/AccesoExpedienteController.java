@@ -71,7 +71,7 @@ public class AccesoExpedienteController {
     }
 
     @GetMapping("/expedientes/{idPaciente}")
-    public ResponseEntity<Expediente> getExpediente(@RequestParam String idPaciente) {
+    public ResponseEntity<Expediente> getExpediente(@PathVariable String idPaciente) {
         return ResponseEntity.ok(pacienteRepository.findById(idPaciente).get().getExpediente());
 
     }
