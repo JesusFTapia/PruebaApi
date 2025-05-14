@@ -1,6 +1,7 @@
 package com.example.RequestResponseManager.Controller;
 
 import com.example.RequestResponseManager.Model.Expediente;
+import com.example.RequestResponseManager.Model.NuevoPaciente;
 import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
@@ -26,7 +27,13 @@ public class AccesoExpedienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Paciente> guardarPaciente(@RequestBody Paciente paciente) {
+    public ResponseEntity<Paciente> guardarPaciente(@RequestBody NuevoPaciente nuevoPaciente) {
+        Paciente paciente = new Paciente();
+        paciente.setId(nuevoPaciente.getIdPaciente());
+        paciente.setNombre(nuevoPaciente.getNombre() + " " + nuevoPaciente.getApellido());
+        Expediente expediente = new Expediente();
+        expediente.setFechaCreacion(nuevoPaciente.getFechaCreacion());
+        paciente.setExpediente(expediente);
         Paciente guardado = pacienteRepository.save(paciente);
         return ResponseEntity.status(HttpStatus.CREATED).body(guardado);
     }
