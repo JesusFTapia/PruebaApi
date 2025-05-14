@@ -57,20 +57,16 @@ public class AccesoExpedienteController {
     public ResponseEntity<Expediente> getExpediente(@RequestParam String idDoctor, @RequestParam String idPaciente) {
         Permiso permiso = permisoRepository.findByIdDoctorAndIdPaciente(idDoctor, idPaciente);
         if (permiso != null) {
-            return pacienteRepository.findById(solicitudExpediente.getIdPaciente()).get().getExpediente();
+            return ResponseEntity.ok(pacienteRepository.findById(idPaciente).get().getExpediente());
         } else {
             return null;
         }
     }
 
     @GetMapping("/expedientes/{pacienteId}")
-    public ResponseEntity<Expediente> getExpediente(@RequestParam String idDoctor, @RequestParam String idPaciente) {
-        Permiso permiso = permisoRepository.findByIdDoctorAndIdPaciente(idDoctor, idPaciente);
-        if (permiso != null) {
-            return pacienteRepository.findById(solicitudExpediente.getIdPaciente()).get().getExpediente();
-        } else {
-            return null;
-        }
+    public ResponseEntity<Expediente> getExpediente(@RequestParam String idPaciente) {
+        return ResponseEntity.ok(pacienteRepository.findById(idPaciente).get().getExpediente());
+
     }
 
 }
