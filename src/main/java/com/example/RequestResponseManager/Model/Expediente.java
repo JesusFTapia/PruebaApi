@@ -8,35 +8,41 @@ public class Expediente {
     private Date fechaCreacion;
     private List<String> diagnosticos;
     private List<String> vacunas;
-    private List<byte[]> radiogradias;
+    private List<byte[]> radiografias;
     private List<String> alergias;
     private String notasAdicionales;
 
-    /*
-     * public Date getFechaCreacion() {
-     * return fechaCreacion;
-     * }
-     * 
-     * public void setFechaCreacion(Date fechaCreacion) {
-     * this.fechaCreacion = fechaCreacion;
-     * }
-     * 
-     * public List<Diagnostico> getDiagnosticos() {
-     * return diagnosticos;
-     * }
-     * 
-     * public void setDiagnosticos(List<Diagnostico> diagnosticos) {
-     * this.diagnosticos = diagnosticos;
-     * }
-     * 
-     * public List<Vacuna> getVacunas() {
-     * return vacunas;
-     * }
-     * 
-     * public void setVacunas(List<Vacuna> vacunas) {
-     * this.vacunas = vacunas;
-     * }
-     */
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public List<String> getDiagnosticos() {
+        return diagnosticos;
+    }
+
+    public void setDiagnosticos(List<String> diagnosticos) {
+        this.diagnosticos = diagnosticos;
+    }
+
+    public List<String> getVacunas() {
+        return vacunas;
+    }
+
+    public void setVacunas(List<String> vacunas) {
+        this.vacunas = vacunas;
+    }
+
+    public List<byte[]> getRadiografias() {
+        return radiografias;
+    }
+
+    public void setRadiografias(List<byte[]> radiografias) {
+        this.radiografias = radiografias;
+    }
 
     public List<String> getAlergias() {
         return alergias;

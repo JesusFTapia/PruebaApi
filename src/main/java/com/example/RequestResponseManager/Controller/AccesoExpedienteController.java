@@ -1,11 +1,12 @@
 package com.example.RequestResponseManager.Controller;
 
 import com.example.RequestResponseManager.Model.Expediente;
-import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
 import com.example.RequestResponseManager.Model.SolicitudExpediente;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
 import com.example.RequestResponseManager.Repository.PermisoRepository;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -23,13 +24,6 @@ public class AccesoExpedienteController {
         this.pacienteRepository = pacienteRepository;
         this.permisoRepository = permisoRepository;
     }
-
-    /*
-     * @GetMapping("/expediente/{curp}")
-     * public List<Paciente> getAll() {
-     * return repository.findAll();
-     * }
-     */
 
     @PostMapping("/generarAcceso/")
     public Permiso create(@RequestBody Permiso permiso) {
@@ -59,10 +53,19 @@ public class AccesoExpedienteController {
      * }
      */
 
-    @PostMapping("/expediente")
-    public Expediente getByCurp(@RequestBody SolicitudExpediente solicitudExpediente) {
-        Permiso permiso = permisoRepository.findByDoctorIdAndPacienteId(solicitudExpediente.getIdDoctor(),
-                solicitudExpediente.getIdPaciente());
+    @GetMapping("/expediente")
+    public ResponseEntity<Expediente> getExpediente(@RequestParam String idDoctor, @RequestParam String idPaciente) {
+        Permiso permiso = permisoRepository.findByIdDoctorAndIdPaciente(idDoctor, idPaciente);
+        if (permiso != null) {
+            return pacienteRepository.findById(solicitudExpediente.getIdPaciente()).get().getExpediente();
+        } else {
+            return null;
+        }
+    }
+
+    @GetMapping("/expedientes/{pacienteId}")
+    public ResponseEntity<Expediente> getExpediente(@RequestParam String idDoctor, @RequestParam String idPaciente) {
+        Permiso permiso = permisoRepository.findByIdDoctorAndIdPaciente(idDoctor, idPaciente);
         if (permiso != null) {
             return pacienteRepository.findById(solicitudExpediente.getIdPaciente()).get().getExpediente();
         } else {
