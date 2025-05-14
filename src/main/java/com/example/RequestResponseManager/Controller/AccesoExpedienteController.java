@@ -3,6 +3,7 @@ package com.example.RequestResponseManager.Controller;
 import com.example.RequestResponseManager.Model.Expediente;
 import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
+import com.example.RequestResponseManager.Model.SolicitudExpediente;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
 import com.example.RequestResponseManager.Repository.PermisoRepository;
 import org.springframework.web.bind.annotation.*;
@@ -58,11 +59,15 @@ public class AccesoExpedienteController {
      * }
      */
 
-    @GetMapping("/expediente/{uuid}")
-    public Expediente getByCurp(@PathVariable String uuid) {
-        rpo
-        if
-        return repository.findByCurp(curp);
+    @PostMapping("/expediente")
+    public Expediente getByCurp(@RequestBody SolicitudExpediente solicitudExpediente) {
+        Permiso permiso = permisoRepository.findByDoctorIdAndPacienteId(solicitudExpediente.getIdDoctor(),
+                solicitudExpediente.getIdPaciente());
+        if (permiso != null) {
+            return pacienteRepository.findById(solicitudExpediente.getIdPaciente()).get().getExpediente();
+        } else {
+            return null;
+        }
     }
 
 }
