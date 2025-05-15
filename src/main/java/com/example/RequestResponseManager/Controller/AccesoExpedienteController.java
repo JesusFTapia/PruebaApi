@@ -4,8 +4,10 @@ import com.example.RequestResponseManager.Model.Expediente;
 import com.example.RequestResponseManager.Model.NuevoPaciente;
 import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
+import com.example.RequestResponseManager.Model.Profesional;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
 import com.example.RequestResponseManager.Repository.PermisoRepository;
+import com.example.RequestResponseManager.Repository.ProfesionalRepository;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -20,10 +23,13 @@ public class AccesoExpedienteController {
 
     private final PacienteRepository pacienteRepository;
     private final PermisoRepository permisoRepository;
+    private final ProfesionalRepository profesionalRepository;
 
-    public AccesoExpedienteController(PacienteRepository pacienteRepository, PermisoRepository permisoRepository) {
+    public AccesoExpedienteController(PacienteRepository pacienteRepository, PermisoRepository permisoRepository,
+            ProfesionalRepository profesionalRepository) {
         this.pacienteRepository = pacienteRepository;
         this.permisoRepository = permisoRepository;
+        this.profesionalRepository = profesionalRepository;
     }
 
     @PostMapping("/nuevopaciente")
@@ -82,6 +88,12 @@ public class AccesoExpedienteController {
     public ResponseEntity<Expediente> getPaciente(@PathVariable String idPaciente) {
         return ResponseEntity.ok(pacienteRepository.findById(idPaciente).get().getExpediente());
 
+    }
+
+    @GetMapping("/profesionales")
+    public ResponseEntity<List<Profesional>> getAllProfesionales() {
+        List<Profesional> profesionales = profesionalRepository.findAll();
+        return ResponseEntity.ok(profesionales);
     }
 
 }
