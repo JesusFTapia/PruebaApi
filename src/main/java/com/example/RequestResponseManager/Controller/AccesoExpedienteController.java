@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -80,8 +81,9 @@ public class AccesoExpedienteController {
             paciente.getExpediente().getVacunas().add(solicitud.getContenido());
             pacienteRepository.save(paciente);
             return true;
-        } else if (solicitud.getTipo().equalsIgnoreCase("radiogradias")) {
-            paciente.getExpediente().getRadiografias().add(solicitud.getContenido());
+        } else if (solicitud.getTipo().equalsIgnoreCase("radiografias")) {
+            byte[] imagenBytes = Base64.getDecoder().decode(solicitud.getContenido());
+            paciente.getExpediente().getRadiografias().add(imagenBytes);
             pacienteRepository.save(paciente);
             return true;
         } else if (solicitud.getTipo().equalsIgnoreCase("alergias")) {
