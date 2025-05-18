@@ -5,6 +5,7 @@ import com.example.RequestResponseManager.Model.NuevoPaciente;
 import com.example.RequestResponseManager.Model.Paciente;
 import com.example.RequestResponseManager.Model.Permiso;
 import com.example.RequestResponseManager.Model.Profesional;
+import com.example.RequestResponseManager.Model.SolicitudActualizar;
 import com.example.RequestResponseManager.Repository.PacienteRepository;
 import com.example.RequestResponseManager.Repository.PermisoRepository;
 import com.example.RequestResponseManager.Repository.ProfesionalRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -62,17 +64,34 @@ public class AccesoExpedienteController {
         return permisoRepository.save(permiso);
     }
 
-    /*
-     * @PatchMapping
-     * public boolean parchear(@RequestBody Paciente paciente){
-     * paciente2= repository.findById(null);
-     * tipo=json.
-     * if(){
-     * pacient
-     * }
-     * paciente2.expediente
-     * }
-     */
+    @PostMapping("/expedientes/actualizar")
+    public boolean parchear(@RequestBody SolicitudActualizar solicitud) {
+        Optional<Paciente> optionalPaciente = pacienteRepository.findById(solicitud.getIdPaciente());
+
+        if (!optionalPaciente.isPresent()) {
+            return false;
+        }
+        Paciente paciente = optionalPaciente.get();
+        if (solicitud.getTipo().equalsIgnoreCase("diagnostico")) {
+            paciente.getExpediente().getDiagnosticos().add(solicitud.getContenido());
+            pacienteRepository.save(paciente);
+            return true;
+        } else if (solicitud.getTipo().equalsIgnoreCase("vacunas")) {
+            paciente.getExpediente().getVacunas().add(solicitud.getContenido());
+            pacienteRepository.save(paciente);
+            return true;
+        } else if (solicitud.getTipo().equalsIgnoreCase("radiogradias")) {
+            paciente.getExpediente().getRadiografias().add(solicitud.getContenido());
+            pacienteRepository.save(paciente);
+            return true;
+        } else if (solicitud.getTipo().equalsIgnoreCase("alergias")) {
+            paciente.getExpediente().getAlergias().add(solicitud.getContenido());
+            pacienteRepository.save(paciente);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     @GetMapping("/expediente")
     public ResponseEntity<Expediente> getExpediente(@RequestParam String idDoctor, @RequestParam String idPaciente) {
