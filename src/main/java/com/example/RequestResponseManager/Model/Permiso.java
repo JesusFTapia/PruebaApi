@@ -11,9 +11,7 @@ public class Permiso {
 
     private String idPaciente;
     private String idDoctor;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date fechaDeGeneracion;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     private Date fechaVencimiento;
 
     public String getIdPaciente() {
