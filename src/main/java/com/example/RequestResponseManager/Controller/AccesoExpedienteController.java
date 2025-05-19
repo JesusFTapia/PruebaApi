@@ -73,7 +73,7 @@ public class AccesoExpedienteController {
             return false;
         }
         Paciente paciente = optionalPaciente.get();
-        if (solicitud.getTipo().equalsIgnoreCase("diagnostico")) {
+        if (solicitud.getTipo().equalsIgnoreCase("diagnosticos")) {
             paciente.getExpediente().getDiagnosticos().add(solicitud.getContenido());
             pacienteRepository.save(paciente);
             return true;
