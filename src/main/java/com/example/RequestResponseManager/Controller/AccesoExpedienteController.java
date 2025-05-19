@@ -52,9 +52,10 @@ public class AccesoExpedienteController {
     @PostMapping("/generarAcceso/")
     public Permiso create(@RequestBody Permiso permiso) {
 
-        Date fechaGeneracion = permiso.getFechaDeGeneracion();
+        Date fechaGeneracionOriginal = permiso.getFechaDeGeneracion();
+
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fechaGeneracion);
+        calendar.setTime((Date) fechaGeneracionOriginal.clone());
 
         calendar.add(Calendar.HOUR, 7);
         permiso.setFechaDeGeneracion(calendar.getTime());
@@ -62,7 +63,14 @@ public class AccesoExpedienteController {
         calendar.add(Calendar.HOUR, 24);
         permiso.setFechaVencimiento(calendar.getTime());
 
-        return permisoRepository.save(permiso);
+        Permiso permisoGuardado = permisoRepository.save(permiso);
+
+        permisoGuardado.setFechaDeGeneracion(fechaGeneracionOriginal);
+        calendar.setTime(fechaGeneracionOriginal);
+        calendar.add(Calendar.HOUR, 24);
+        permisoGuardado.setFechaVencimiento(calendar.getTime());
+
+        return permisoGuardado;
     }
 
     @PostMapping("/expedientes/actualizar")
