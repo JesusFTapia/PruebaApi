@@ -1,11 +1,10 @@
 package com.example.RequestResponseManager.Model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "profesionales")
 public class Profesional {
-    @Id
+
     private String cedula;
     private String nombre;
 
