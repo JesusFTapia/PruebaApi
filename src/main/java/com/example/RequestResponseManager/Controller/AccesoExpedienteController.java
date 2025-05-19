@@ -99,7 +99,7 @@ public class AccesoExpedienteController {
     public ResponseEntity<Expediente> getExpediente(@RequestParam String idDoctor, @RequestParam String idPaciente) {
         Permiso permiso = permisoRepository.findByIdDoctorAndIdPaciente(idDoctor, idPaciente);
         if (permiso != null) {
-            return ResponseEntity.ok(pacienteRepository.findById(idPaciente).get().getExpediente());
+            return ResponseEntity.ok(pacienteRepository.findByIdPaciente(idPaciente).get().getExpediente());
         } else {
             return null;
         }

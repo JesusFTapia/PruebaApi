@@ -8,6 +8,7 @@ public class Paciente {
 
     @Id
     private String id;
+    private String idPaciente;
     private String nombre;
     private int edad;
     private String curp;
@@ -51,6 +52,14 @@ public class Paciente {
 
     public void setExpediente(Expediente expediente) {
         this.expediente = expediente;
+    }
+
+    public String getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(String idPaciente) {
+        this.idPaciente = idPaciente;
     }
 
 }
