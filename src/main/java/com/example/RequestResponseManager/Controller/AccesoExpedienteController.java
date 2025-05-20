@@ -51,28 +51,34 @@ public class AccesoExpedienteController {
 
     @PostMapping("/generarAcceso/")
     public Permiso create(@RequestBody Permiso permiso) {
-        Date fechadehoy = new Date();
+        Permiso permisoVerificar = permisoRepository.findByIdDoctorAndIdPaciente(permiso.getIdDoctor(),
+                permiso.getIdPaciente());
+        if (permisoVerificar != null) {
+            return null;
+        } else {
+            Date fechadehoy = new Date();
 
-        Date fechaGeneracionOriginal = permiso.getFechaDeGeneracion();
+            // Date fechaGeneracionOriginal = permiso.getFechaDeGeneracion();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fechadehoy);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechadehoy);
 
-        calendar.add(Calendar.HOUR, 7);
-        permiso.setFechaDeGeneracion(calendar.getTime());
+            calendar.add(Calendar.HOUR, 7);
+            permiso.setFechaDeGeneracion(calendar.getTime());
 
-        calendar.add(Calendar.HOUR, 24);
-        permiso.setFechaVencimiento(calendar.getTime());
+            calendar.add(Calendar.HOUR, 24);
+            permiso.setFechaVencimiento(calendar.getTime());
 
-        Permiso permisoGuardado = permisoRepository.save(permiso);
-
+            Permiso permisoGuardado = permisoRepository.save(permiso);
+            return permisoGuardado;
+        }
         /*
          * permisoGuardado.setFechaDeGeneracion(fechaGeneracionOriginal);
          * calendar.setTime(fechaGeneracionOriginal);
          * calendar.add(Calendar.HOUR, 24);
          * permisoGuardado.setFechaVencimiento(calendar.getTime());
          */
-        return permisoGuardado;
+
     }
 
     @PostMapping("/expedientes/actualizar")
